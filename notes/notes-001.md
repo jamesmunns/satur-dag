@@ -12,7 +12,13 @@ Then I run into a weird python thing:
 
 https://github.com/DavidBuchanan314/dag-cbor-benchmark/issues/1
 
+I opened a PR that I think fixes it:
+
+https://github.com/DavidBuchanan314/dag-cbor-benchmark/pull/2
+
 Okay, after a quick PR, I have my first result with JUST `dag-cbrrr`!
+
+## Results (just dag-cbrrr)
 
 ```
 Hello World Decode:
