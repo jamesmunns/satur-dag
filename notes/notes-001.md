@@ -105,3 +105,79 @@ torture_nested_maps.dagcbor    dag_cbor  ERROR: maximum recursion depth exceeded
 ![segfault image](./segfault-001.png)
 
 Lol, Lmao.
+
+## Running in Rust
+
+```
+   Compiling native-bench v0.1.0 (/Users/james/personal/satur-dag/source/native-bench)
+    Finished bench [optimized] target(s) in 1.00s
+     Running unittests src/lib.rs (target/release/deps/native_bench-67be11b117d8ed6e)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running benches/smoke.rs (target/release/deps/smoke-e4b82648cc87279f)
+Gnuplot not found, using plotters backend
+canada.json.dagcbor     time:   [5.9365 ms 5.9542 ms 5.9745 ms]
+                        change: [-2.1747% -1.3811% -0.6268%] (p = 0.00 < 0.05)
+                        Change within noise threshold.
+Found 8 outliers among 100 measurements (8.00%)
+  3 (3.00%) high mild
+  5 (5.00%) high severe
+
+citm_catalog.json.dagcbor
+                        time:   [6.4516 ms 6.4690 ms 6.4912 ms]
+                        change: [-5.2973% -3.6812% -2.0849%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 4 outliers among 100 measurements (4.00%)
+  1 (1.00%) low mild
+  3 (3.00%) high severe
+
+torture_cids.dagcbor    time:   [7.1196 µs 7.1318 µs 7.1436 µs]
+                        change: [-0.6665% -0.3871% -0.1100%] (p = 0.01 < 0.05)
+                        Change within noise threshold.
+Found 6 outliers among 100 measurements (6.00%)
+  2 (2.00%) low mild
+  4 (4.00%) high mild
+
+trivial_helloworld.dagcbor
+                        time:   [73.030 ns 73.086 ns 73.144 ns]
+Found 9 outliers among 100 measurements (9.00%)
+  1 (1.00%) low severe
+  1 (1.00%) low mild
+  4 (4.00%) high mild
+  3 (3.00%) high severe
+
+twitter.json.dagcbor    time:   [2.2873 ms 2.2900 ms 2.2933 ms]
+Found 14 outliers among 100 measurements (14.00%)
+  8 (8.00%) high mild
+  6 (6.00%) high severe
+```
+
+## Oranges to Apples
+
+These are not reasonable comparisons. There's a LOT going on in python, particularly creating a ton of
+allocations.
+
+| file                  | ipld in python    | ipld native   |
+| :---                  | :---              | :---          |
+| trivial_helloworld    | 494 ns            | 73.086 ns     |
+| citm_catalog          | 17.39 ms          | 6.4690 ms     |
+| canada                | 25.07 ms          | 5.9542 ms     |
+| twitter               | 9.04 ms           | 2.2900 ms     |
+| torture_cids          | 120.6 ms          | 7.1318 µs     |
+| torture_nested_lists  | DNF               | DNF           |
+| torture_nested_maps   | DNF               | DNF           |
+
+## DNF
+
+```
+Benchmarking torture_nested_lists.dagcbor: Warming up for 3.0000 s
+thread 'main' has overflowed its stack
+fatal runtime error: stack overflow
+
+Benchmarking torture_nested_maps.dagcbor: Warming up for 3.0000 s
+thread 'main' has overflowed its stack
+fatal runtime error: stack overflow
+```

@@ -1,17 +1,51 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
+// use native_bench::{PyBytes_FromStringAndSize, cbrrr_parse_object};
 // use libipld::
 
-const HELLO_WORLD: &[u8] =
-    include_bytes!("../../../vendor/dag-cbor-benchmark/data/trivial_helloworld.dagcbor");
 
-pub fn criterion_benchmark(c: &mut Criterion) {
-    c.bench_function("ipld hello world", |b| {
-        b.iter(|| ipld_helpers::decode_dag_cbor(black_box(HELLO_WORLD)).unwrap())
-    });
+const BENCHES: &[(&str, &[u8])] = &[
+    ("canada.json.dagcbor", include_bytes!("../../../vendor/dag-cbor-benchmark/data/canada.json.dagcbor")),
+    ("citm_catalog.json.dagcbor", include_bytes!("../../../vendor/dag-cbor-benchmark/data/citm_catalog.json.dagcbor")),
+    ("torture_cids.dagcbor", include_bytes!("../../../vendor/dag-cbor-benchmark/data/torture_cids.dagcbor")),
+
+    // Benchmarking torture_nested_lists.dagcbor: Warming up for 3.0000 s
+    // thread 'main' has overflowed its stack
+    // fatal runtime error: stack overflow
+    // ("torture_nested_lists.dagcbor", include_bytes!("../../../vendor/dag-cbor-benchmark/data/torture_nested_lists.dagcbor")),
+
+    // Benchmarking torture_nested_maps.dagcbor: Warming up for 3.0000 s
+    // thread 'main' has overflowed its stack
+    // fatal runtime error: stack overflow
+    // ("torture_nested_maps.dagcbor", include_bytes!("../../../vendor/dag-cbor-benchmark/data/torture_nested_maps.dagcbor")),
+
+    ("trivial_helloworld.dagcbor", include_bytes!("../../../vendor/dag-cbor-benchmark/data/trivial_helloworld.dagcbor")),
+    ("twitter.json.dagcbor", include_bytes!("../../../vendor/dag-cbor-benchmark/data/twitter.json.dagcbor")),
+];
+
+pub fn ipld_bench(c: &mut Criterion) {
+    // Compiles, but segfaults, because cid_ctor needs to be more real.
+    //
+    // unsafe {
+    //     let mut outptr: *mut () = core::ptr::null_mut();
+    //     let res = cbrrr_parse_object(HELLO_WORLD.as_ptr(), HELLO_WORLD.len(), &mut outptr, core::ptr::null_mut(), 0);
+    //     assert!(res >= 0);
+    //     assert!(!outptr.is_null());
+    // }
+
+    for (fname, fcont) in BENCHES {
+        c.bench_function(fname, |b| {
+            b.iter(|| ipld_helpers::decode_dag_cbor(black_box(fcont)).unwrap())
+        });
+    }
 }
 
-criterion_group!(benches, criterion_benchmark);
+criterion_group!(benches, ipld_bench);
 criterion_main!(benches);
+
+mod brrr_helpers {
+
+}
+
 
 mod ipld_helpers {
     use std::{
