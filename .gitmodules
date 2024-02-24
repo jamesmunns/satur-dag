@@ -1,0 +1,12 @@
+[submodule "vendor/dag-cbor-benchmark"]
+	path = vendor/dag-cbor-benchmark
+	url = git@github.com:DavidBuchanan314/dag-cbor-benchmark.git
+[submodule "vendor/dag-cbrrr"]
+	path = vendor/dag-cbrrr
+	url = https://github.com/DavidBuchanan314/dag-cbrrr
+[submodule "vendor/python-libipld"]
+	path = vendor/python-libipld
+	url = https://github.com/MarshalX/python-libipld
+[submodule "vendor/dag-cbor"]
+	path = vendor/dag-cbor
+	url = https://github.com/hashberg-io/dag-cbor
