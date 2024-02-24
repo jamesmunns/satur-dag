@@ -1,9 +1,9 @@
 [submodule "vendor/dag-cbor-benchmark"]
 	path = vendor/dag-cbor-benchmark
-	url = git@github.com:DavidBuchanan314/dag-cbor-benchmark.git
+	url = git@github.com:jamesmunns/dag-cbor-benchmark.git
 [submodule "vendor/dag-cbrrr"]
 	path = vendor/dag-cbrrr
-	url = https://github.com/DavidBuchanan314/dag-cbrrr
+	url = https://github.com/jamesmunns/dag-cbrrr
 [submodule "vendor/python-libipld"]
 	path = vendor/python-libipld
 	url = https://github.com/MarshalX/python-libipld
