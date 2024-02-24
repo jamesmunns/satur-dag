@@ -160,15 +160,15 @@ Found 14 outliers among 100 measurements (14.00%)
 These are not reasonable comparisons. There's a LOT going on in python, particularly creating a ton of
 allocations.
 
-| file                  | ipld in python    | ipld native   |
-| :---                  | :---              | :---          |
-| trivial_helloworld    | 494 ns            | 73.086 ns     |
-| citm_catalog          | 17.39 ms          | 6.4690 ms     |
-| canada                | 25.07 ms          | 5.9542 ms     |
-| twitter               | 9.04 ms           | 2.2900 ms     |
-| torture_cids          | 120.6 ms          | 7.1318 µs     |
-| torture_nested_lists  | DNF               | DNF           |
-| torture_nested_maps   | DNF               | DNF           |
+| file                  | ipld in python    | ipld native   | cbrrr         |
+| :---                  | :---              | :---          | :---          |
+| trivial_helloworld    | 494 ns            | 73.086 ns     | 256 ns        |
+| citm_catalog          | 17.39 ms          | 6.4690 ms     | 1.72 ms       |
+| canada                | 25.07 ms          | 5.9542 ms     | 2.53 ms       |
+| twitter               | 9.04 ms           | 2.2900 ms     | 1.08 ms       |
+| torture_cids          | 120.6 ms          | 7.1318 µs     | 81.1 ms       |
+| torture_nested_lists  | DNF               | DNF           | 1450.9 ms     |
+| torture_nested_maps   | DNF               | DNF           | 2408.1 ms     |
 
 ## DNF
 
